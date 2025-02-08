@@ -30,9 +30,8 @@ class SGDF(Optimizer):
                     continue
                 
                 grad = p.grad.data
-                #Decoupled weight decay
                 if weight_decay != 0.0:
-                    p.data.mul_(1 - group['lr'] * group['weight_decay'])
+                    grad.add_(p.data, alpha=weight_decay)
 
                 state = self.state[p]
 
@@ -63,10 +62,10 @@ class SGDF(Optimizer):
                 exp_var_corr = exp_var / bias_correction2
 
                 # Wiener gain
-                K = exp_var_corr/(exp_var_corr + (grad - exp_avg_corr).pow(2).add_(eps))
+                K = exp_var_corr/(exp_var_corr + (grad - exp_avg_corr).pow(2)).add_(eps)
                 
                 grad_hat_residual = grad - exp_avg_corr
-                grad_hat = exp_avg_corr + K * grad_hat_residual
+                grad_hat = exp_avg_corr + 2 * K * grad_hat_residual
 
                 p.data.add_(grad_hat, alpha=-lr)
                                 
