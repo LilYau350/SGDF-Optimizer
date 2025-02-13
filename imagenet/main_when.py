@@ -114,7 +114,6 @@ def main():
 
 
 def main_worker(args):
-    # filename = 'model-{}-optimizer-{}-lr-{}-epochs-{}-eps{}-beta1{}-beta2{}-wd{}-batch-{}'.format(args.arch, args.optimizer, args.lr, args.epochs, args.eps, args.beta1, args.beta2, args.weight_decay, args.batch_size)
     filename = 'model-{}-optimizer-{}-lr-{}-epochs-{}-eps{}-beta1{}-beta2{}-wd{}-batch{}-lr_decay-{}'.format(
         args.arch, args.optimizer, args.lr, args.epochs, args.eps, args.beta1, args.beta2, args.weight_decay, args.batch_size, args.lr_decay)
     
@@ -268,7 +267,7 @@ def main_worker(args):
         val_dataset, batch_size=per_gpu_batch_size, shuffle=False,
         num_workers=args.workers, pin_memory=True, sampler=val_sampler)
 
-    # train_loader, val_loader = DataPrefetcher(train_loader), DataPrefetcher(val_loader)
+    train_loader, val_loader = DataPrefetcher(train_loader), DataPrefetcher(val_loader)
     
     if args.lr_decay == 'cosine':
         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs, eta_min=0, verbose=True)
@@ -288,7 +287,6 @@ def main_worker(args):
         if args.parallel:
             train_sampler.set_epoch(epoch)
             val_sampler.set_epoch(epoch)
-        #adjust_learning_rate(optimizer, epoch, args)
 
         # train for one epoch
         _train1, _train5 = train(train_loader, model, criterion, optimizer, epoch, device, scheduler, scaler, args)
@@ -382,13 +380,6 @@ def train(train_loader, model, criterion, optimizer, epoch, device, scheduler, s
         
         top1.update(acc1[0], images.size(0))
         top5.update(acc5[0], images.size(0))
-        
-        # # warmup learning rate
-        # if args.warmup and epoch < args.warmup_epoch:
-        #     lr = args.lr * (0.1 ** (epoch // args.warmup_epoch))
-        #     lr_tmp = lr / float(len(train_loader)) * float(i)
-        #     for param_group in optimizer.param_groups:
-        #         param_group['lr'] = lr_tmp
         
         # Compute gradient and do SGD step, use scaler for mixed precision
         optimizer.zero_grad()
@@ -552,6 +543,7 @@ class ProgressMeter(object):
         num_digits = len(str(num_batches // 1))
         fmt = '{:' + str(num_digits) + 'd}'
         return '[' + fmt + '/' + fmt.format(num_batches) + ']'
+
 
 def accuracy(output, target, topk=(1,)):
     """Computes the accuracy over the k top predictions for the specified values of k"""
