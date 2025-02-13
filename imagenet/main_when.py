@@ -35,16 +35,14 @@ from torch.optim.lr_scheduler import _LRScheduler
 from torchvision.transforms import AutoAugmentPolicy
 import torchvision.datasets
 
-os.environ["OMP_NUM_THREADS"] = "4"
-
 model_names = sorted(name for name in models.__dict__
     if name.islower() and not name.startswith("__")
     and callable(models.__dict__[name]))
 
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
-parser.add_argument('--data', metavar='DIR',default='/home/workspace/zhipeng/ILSVRC2012',#'/data1/ILSVRC2012',#
+parser.add_argument('--data', metavar='DIR',default='/root/data1/ILSVRC2012',#'/data1/ILSVRC2012',#
                     help='path to dataset')
-parser.add_argument('-a', '--arch', metavar='ARCH', default='resnet',
+parser.add_argument('-a', '--arch', metavar='ARCH', default='vgg11',
                     help='model architecture: ' +
                         ' | '.join(model_names) +
                         ' (default: resnet18)')
@@ -55,7 +53,7 @@ parser.add_argument('--centralize', default=False, dest='centralize', action = '
 parser.add_argument('--reset', default=False, dest='reset', action = 'store_true')
 parser.add_argument('--warmup', default=False, dest='warmup', action = 'store_true')
 parser.add_argument('--reset_resume_optim', default=False, dest='reset_resume_optim', action = 'store_true')
-parser.add_argument('--epochs', default=100, type=int, metavar='N',
+parser.add_argument('--epochs', default=90, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--when', nargs='+', type=int, default=[30,60,90])
 parser.add_argument('--save_epoch', default=100, type=int, metavar='N',
@@ -93,7 +91,7 @@ parser.add_argument('--beta2', default=0.999, type=float, help='beta2 in Adabeli
 parser.add_argument('--weight_decouple', default=True, type=bool, help='Weight decouple in Adabelief')
 parser.add_argument("--parallel", default=False, type=bool, help="Use multi-GPU training")
 parser.add_argument('--amp', default=False, type=bool, help='Use AMP for mixed precision training')
-parser.add_argument('--lr_decay', default='stage', type=str, choices=['cosine', 'stage'], help='Choise how to lr decay.')
+parser.add_argument('--lr_decay', default='cosine', type=str, choices=['cosine', 'stage'], help='Choise how to lr decay.')
 
 
 best_acc1 = 0
@@ -239,8 +237,7 @@ def main_worker(args):
         transforms.Compose([
             transforms.RandomResizedCrop(224),
             transforms.RandomHorizontalFlip(),
-            # transforms.TrivialAugmentWide(),
-            # transforms.AutoAugment(policy=AutoAugmentPolicy.IMAGENET), 
+
             transforms.ToTensor(),
             normalize,
         ]))
@@ -271,7 +268,7 @@ def main_worker(args):
         val_dataset, batch_size=per_gpu_batch_size, shuffle=False,
         num_workers=args.workers, pin_memory=True, sampler=val_sampler)
 
-    train_loader, val_loader = DataPrefetcher(train_loader), DataPrefetcher(val_loader)
+    # train_loader, val_loader = DataPrefetcher(train_loader), DataPrefetcher(val_loader)
     
     if args.lr_decay == 'cosine':
         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs, eta_min=0, verbose=True)
@@ -369,8 +366,6 @@ def train(train_loader, model, criterion, optimizer, epoch, device, scheduler, s
         # Move images and targets to the correct device
         images = images.to(device, non_blocking=True)  # Use device
         target = target.to(device, non_blocking=True)  # Use device
-
-        # scheduler.get_batch_lr(epoch, float(i), len(train_loader))
         
         # Use autocast for mixed precision if enabled
         with autocast(enabled=args.amp):
@@ -387,7 +382,14 @@ def train(train_loader, model, criterion, optimizer, epoch, device, scheduler, s
         
         top1.update(acc1[0], images.size(0))
         top5.update(acc5[0], images.size(0))
-                
+        
+        # # warmup learning rate
+        # if args.warmup and epoch < args.warmup_epoch:
+        #     lr = args.lr * (0.1 ** (epoch // args.warmup_epoch))
+        #     lr_tmp = lr / float(len(train_loader)) * float(i)
+        #     for param_group in optimizer.param_groups:
+        #         param_group['lr'] = lr_tmp
+        
         # Compute gradient and do SGD step, use scaler for mixed precision
         optimizer.zero_grad()
 
@@ -469,7 +471,7 @@ def save_checkpoint(state, is_best, filename='checkpoint.pth.tar', epoch = 0, sa
     if is_best:
         shutil.copyfile(filename, filename+'_model_best.pth.tar')
     if (epoch + 1) % save_epoch == 0:
-        torch.save(state, '{}-epoch-{}'.format(filename, epoch))        
+        torch.save(state, '{}-epoch-{}'.format(filename, epoch))
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
@@ -493,6 +495,7 @@ class AverageMeter(object):
     def __str__(self):
         fmtstr = '{name} {val' + self.fmt + '} ({avg' + self.fmt + '})'
         return fmtstr.format(**self.__dict__)
+
 
 # Seems to speed up training by ~2%
 class DataPrefetcher():
