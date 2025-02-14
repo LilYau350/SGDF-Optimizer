@@ -40,7 +40,7 @@ model_names = sorted(name for name in models.__dict__
     and callable(models.__dict__[name]))
 
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
-parser.add_argument('--data', metavar='DIR',default='/root/data1/ILSVRC2012',#'/data1/ILSVRC2012',#
+parser.add_argument('--data', metavar='DIR',default='/root/data/ILSVRC2012',#'/data/ILSVRC2012',#
                     help='path to dataset')
 parser.add_argument('-a', '--arch', metavar='ARCH', default='vgg11',
                     help='model architecture: ' +
