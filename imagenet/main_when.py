@@ -52,13 +52,13 @@ parser.add_argument('--optimizer', default='sgdf', type=str)
 parser.add_argument('--centralize', default=False, dest='centralize', action = 'store_true')
 parser.add_argument('--reset', default=False, dest='reset', action = 'store_true')
 parser.add_argument('--warmup', default=False, dest='warmup', action = 'store_true')
+parser.add_argument('--warmup_epoch', default=5, type=int, metavar='N',
+                    help='number of total epochs to run')
 parser.add_argument('--reset_resume_optim', default=False, dest='reset_resume_optim', action = 'store_true')
 parser.add_argument('--epochs', default=90, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--when', nargs='+', type=int, default=[30,60,90])
 parser.add_argument('--save_epoch', default=100, type=int, metavar='N',
-                    help='number of total epochs to run')
-parser.add_argument('--warmup_epoch', default=5, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
                     help='manual epoch number (useful on restarts)')
@@ -270,9 +270,11 @@ def main_worker(args):
     train_loader, val_loader = DataPrefetcher(train_loader), DataPrefetcher(val_loader)
     
     if args.lr_decay == 'cosine':
+        # scheduler = WarmupCosineAnnealingLR(args, optimizer, use_warmup=False)
         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs, eta_min=0, verbose=True)
         
     else:
+        # scheduler = WarmupStageScheduler(args, optimizer, use_warmup=False)        
         scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=args.when, gamma=0.1, verbose=True)
 
         
