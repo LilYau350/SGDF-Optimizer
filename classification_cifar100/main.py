@@ -232,7 +232,7 @@ def adjust_learning_rate(optimizer, epoch, step_size=50, gamma=0.1, reset = Fals
 def main():
     parser = get_parser()
     args = parser.parse_args()
-
+    set_random_seed(args.run)
     train_loader, test_loader = build_dataset(args)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
