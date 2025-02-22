@@ -23,7 +23,7 @@ def get_parser():
     parser.add_argument('--model', default='resnet', type=str, help='model',
                         choices=['resnet', 'densenet', 'vgg'])
     parser.add_argument('--optim', default='adam', type=str, help='optimizer',
-                        choices=['sgdf', 'sgd', 'adam', 'radam', 'adamw','msvag', 'lion', 'sophia', 'adabelief'])#'koala-m'])
+                        choices=['sgdf', 'sgd', 'adam', 'radam', 'adamw','msvag', 'lion', 'sophia', 'adabelief', 'koala-m'])
     parser.add_argument('--run', default=0, type=int, help='number of runs')
     parser.add_argument('--lr', default=0.001, type=float, help='learning rate')
     parser.add_argument('--lr-gamma', default=0.1, type=float, help='learning rate decay')
