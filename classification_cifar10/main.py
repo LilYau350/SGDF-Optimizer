@@ -189,7 +189,7 @@ def train(net, epoch, device, data_loader, optimizer, criterion, args):
         loss.backward()
         if args.optim == 'koala-m':
             loss_var = torch.mean(torch.pow(loss, 2))
-            optimizer.step(closure=lambda: loss, loss_var=loss_var)
+            optimizer.update(loss, loss_var)
         else:
             optimizer.step()
 
