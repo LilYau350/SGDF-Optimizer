@@ -8,4 +8,4 @@ from .AdamW import AdamW
 from .Lion import Lion
 from .SGDF import SGDF
 from .Sophia import SophiaG
-from .KOALA_pytorch import MomentumKOALA
+from .KOALA import MomentumKOALA
