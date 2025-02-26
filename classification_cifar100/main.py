@@ -51,6 +51,15 @@ def get_parser():
                         help='whether reset optimizer at learning rate decay')     
     return parser
 
+def set_random_seed(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 def build_dataset(args):
     print('==> Preparing data..')
