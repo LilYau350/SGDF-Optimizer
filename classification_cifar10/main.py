@@ -11,6 +11,8 @@ import os
 import argparse
 import time
 import csv
+import random
+import numpy as np
 from models import ResNet34, DenseNet121, vgg11
 from torch.optim import Adam, SGD, RAdam, AdamW
 from optimizers import MSVAG, SGDF, AdaBound, Lion, SophiaG, MomentumKOALA, AdaBelief
@@ -51,6 +53,15 @@ def get_parser():
                         help='whether reset optimizer at learning rate decay')
     return parser
 
+def set_random_seed(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 def build_dataset(args):
     print('==> Preparing data..')
