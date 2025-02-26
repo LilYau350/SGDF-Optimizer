@@ -36,7 +36,7 @@ def get_parser():
     parser.add_argument('--momentum', default=0.9, type=float, help='momentum term')
     parser.add_argument('--beta1', default=0.9, type=float, help='Adam coefficients beta_1')
     parser.add_argument('--beta2', default=0.999, type=float, help='Adam coefficients beta_2')
-    parser.add_argument('--rho', default=0.04, type=float, help='rho for adan') 
+    parser.add_argument('--rho', default=0.04, type=float, help='rho for sophia') 
     # KOALA specific args
     parser.add_argument('--r', type=float, help='None for adaptive', default=None)
     parser.add_argument('--sw', type=float, default=0.1)
