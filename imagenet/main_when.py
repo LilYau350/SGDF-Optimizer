@@ -270,11 +270,9 @@ def main_worker(args):
     train_loader, val_loader = DataPrefetcher(train_loader), DataPrefetcher(val_loader)
     
     if args.lr_decay == 'cosine':
-        # scheduler = WarmupCosineAnnealingLR(args, optimizer, use_warmup=False)
         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs, eta_min=0, verbose=True)
         
-    else:
-        # scheduler = WarmupStageScheduler(args, optimizer, use_warmup=False)        
+    else:       
         scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=args.when, gamma=0.1, verbose=True)
 
         
@@ -488,52 +486,6 @@ class AverageMeter(object):
     def __str__(self):
         fmtstr = '{name} {val' + self.fmt + '} ({avg' + self.fmt + '})'
         return fmtstr.format(**self.__dict__)
-
-class WarmupCosineAnnealingLR(_LRScheduler):
-    def __init__(self, args, optimizer, use_warmup=False, last_epoch=-1):
-        self.lr = args.lr  
-        self.warmup_epoch = args.warmup_epoch  
-        self.total_epochs = args.epochs 
-        self.eta_min = args.eta_min if hasattr(args, 'eta_min') else 0
-        self.use_warmup = use_warmup 
-        super(WarmupCosineAnnealingLR, self).__init__(optimizer, last_epoch)
-
-    def get_lr(self):
-        epoch = self.last_epoch
-        if self.use_warmup and epoch < self.warmup_epoch:
-            target_lr = self.lr * epoch / self.warmup_epoch
-            return [target_lr]
-        else:
-            progress = (epoch - self.warmup_epoch) / (self.total_epochs - self.warmup_epoch) if epoch >= self.warmup_epoch else 0
-            cosine_decay = 0.5 * (1 + math.cos(math.pi * progress))
-            target_lr = (self.lr - self.eta_min) * cosine_decay + self.eta_min
-            return [target_lr]
-
-    def step(self):
-        super().step()
-
-class WarmupStageScheduler(_LRScheduler):
-    def __init__(self, args, optimizer, use_warmup=True, last_epoch=-1):
-        self.lr = args.lr  
-        self.warmup_epoch = args.warmup_epoch  
-        self.total_epochs = args.epochs 
-        self.when = args.when
-        self.decay_factor = args.decay_factor if hasattr(args, 'decay_factor') else 0.1
-        self.use_warmup = use_warmup 
-        super(WarmupStageScheduler, self).__init__(optimizer, last_epoch)
-
-    def get_lr(self):
-        epoch = self.last_epoch
-        if self.use_warmup and epoch < self.warmup_epoch:
-            target_lr = self.lr * (epoch+1) / self.warmup_epoch
-            return [target_lr]
-        else:
-            if epoch in self.when:
-                self.lr *= self.decay_factor
-            return [self.lr]
-
-    def step(self):
-        super().step()
         
 # Seems to speed up training by ~2%
 class DataPrefetcher():
