@@ -26,9 +26,9 @@ Please use the jupyter notebook "visualization.ipynb" to visualize the training 
 ### Training and evaluation code
 
 (1) train network with
-CUDA_VISIBLE_DEVICES=0 python main.py --optim sgdf --lr 3e-1 --eps 1e-8 --beta1 0.9 --beta2 0.999 --momentum 0.9
+CUDA_VISIBLE_DEVICES=0 python main.py --optim sgdf --lr 0.5 --eps 1e-8 --beta1 0.9 --beta2 0.999 --momentum 0.9
 
---optim: name of optimizers, choices include ['sgdf', 'sgd', 'adam', 'radam', 'adamw', 'msvag', 'adabound', 'sophia', 'lion']
+--optim: name of optimizers, choices include ['sgdf', 'sgd', 'adam', 'radam', 'adamw', 'msvag', 'adabound', 'sophia', 'lion', 'adabelief']
 --lr: learning rate
 --eps: epsilon value used for optimizers. Note that Yogi uses a default of 1e-03, other optimizers typically uses 1e-08
 --beta1, --beta2: beta values in adaptive optimizers
