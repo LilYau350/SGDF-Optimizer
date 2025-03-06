@@ -25,7 +25,7 @@ import tools.dist_util as dist_util
 from tools.accuracy import AverageMeter, ProgressMeter, accuracy
 
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
-parser.add_argument('--data_dir', metavar='DIR', default='/home/workspace/zhipeng/ILSVRC2012',
+parser.add_argument('--data_dir', metavar='DIR', default='/home/workspace/ILSVRC2012',
                     help='Path to the ImageNet train data directory')
 parser.add_argument("--name", required=False, default="default_run", help="Name of this run. Used for monitoring.")
 parser.add_argument("--model_type", choices=["ViT-S_16", "ViT-S_32", 
@@ -46,7 +46,7 @@ parser.add_argument("--epochs", default=10, type=int, help="Total number of trai
 parser.add_argument('--save_epoch', default=300, type=int, metavar='N', help='number of epochs to save checkpoint')
 
 parser.add_argument('--optimizer', default='sgdf', type=str)
-parser.add_argument("--lr", default=0.25, type=float, help="The initial learning rate for optimizer.")
+parser.add_argument("--lr", default=0.5, type=float, help="The initial learning rate for optimizer.")
 parser.add_argument('--momentum', default=0.9, type=float, metavar='M', help='momentum')
 parser.add_argument('--beta1', default=0.9, type=float, help='beta1 in SGDF')
 parser.add_argument('--beta2', default=0.999, type=float, help='beta2 in SGDF')
@@ -55,7 +55,7 @@ parser.add_argument("--weight_decay", default=0.0, type=float, help="Weight deay
 parser.add_argument('--weight_decouple', default=True, type=bool, help='Weight decouple in Adabelief')
 
 parser.add_argument('--gradient_accumulation_steps', type=int, default=4, help="Number of updates steps to accumulate before performing a backward/update pass.")
-parser.add_argument("--max_grad_norm", default=-1.0, type=float, help="Max gradient norm.")
+parser.add_argument("--max_grad_norm", default=1.0, type=float, help="Max gradient norm.")
 parser.add_argument("--warmup_steps", default=0, type=int, help="Number of warm-up steps before learning rate cosine annealing.")
 parser.add_argument("--decay_type", choices=["constant", "cosine", "linear"], default="cosine", help="How to decay the learning rate.")
 
