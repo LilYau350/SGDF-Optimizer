@@ -5,7 +5,8 @@
 * Some of the experimental code in our paper was borrowed from the following repositories, thanks to these authors for open source.
 <br> https://github.com/tomgoldstein/loss-landscape
 <br> https://github.com/amirgholami/PyHessian
-<br> https://github.com/juntang-zhuang/Adabelief-Optimizer/tree/update_0.2.0
+<br> https://github.com/juntang-zhuang/Adabelief-Optimizer
+<br> https://github.com/jeonsworld/ViT-pytorch
 
 
 ## Table of Hyper-parameters 
@@ -18,4 +19,4 @@
 | ImageNet | 5e-1 |0.5   | 0.999 | 1e-8    | 1e-4         | 
 | Object detection (PASCAL) | 1e-2 | 0.9   | 0.999 | 1e-8 | 1e-4         | 
 | WGAN | 1e-2 |0.5| 0.999 | 1e-8   | 0            | 
-
+| ViT | 5e-1 |0.9| 0.999 | 1e-8   | 0            | 
