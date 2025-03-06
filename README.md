@@ -3,10 +3,12 @@
 
 ## Related GitHub Repositories
 * Some of the experimental code in our paper was borrowed from the following repositories, thanks to these authors for open source.
-* 
 <br> https://github.com/tomgoldstein/loss-landscape
+
 <br> https://github.com/amirgholami/PyHessian
+
 <br> https://github.com/juntang-zhuang/Adabelief-Optimizer
+
 <br> https://github.com/jeonsworld/ViT-pytorch
 
 
