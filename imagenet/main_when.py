@@ -51,9 +51,6 @@ parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
 parser.add_argument('--optimizer', default='sgdf', type=str)
 parser.add_argument('--centralize', default=False, dest='centralize', action = 'store_true')
 parser.add_argument('--reset', default=False, dest='reset', action = 'store_true')
-parser.add_argument('--warmup', default=False, dest='warmup', action = 'store_true')
-parser.add_argument('--warmup_epoch', default=5, type=int, metavar='N',
-                    help='number of total epochs to run')
 parser.add_argument('--reset_resume_optim', default=False, dest='reset_resume_optim', action = 'store_true')
 parser.add_argument('--epochs', default=90, type=int, metavar='N',
                     help='number of total epochs to run')
@@ -90,7 +87,7 @@ parser.add_argument('--beta1', default=0.5, type=float, help='beta1 in Adabelief
 parser.add_argument('--beta2', default=0.999, type=float, help='beta2 in Adabelief')
 parser.add_argument('--weight_decouple', default=True, type=bool, help='Weight decouple in Adabelief')
 parser.add_argument("--parallel", default=False, type=bool, help="Use multi-GPU training")
-parser.add_argument('--amp', default=False, type=bool, help='Use AMP for mixed precision training')
+parser.add_argument('--amp', default=True, type=bool, help='Use AMP for mixed precision training')
 parser.add_argument('--lr_decay', default='cosine', type=str, choices=['cosine', 'stage'], help='Choise how to lr decay.')
 
 
