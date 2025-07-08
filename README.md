@@ -21,12 +21,3 @@
 | WGAN | 1e-2 |0.5| 0.999 | 1e-8   | 0            | 
 | ViT | 5e-1 |0.9| 0.999 | 1e-8   | 0            | 
 
-## Citation
-```
-@article{yao2023signal,
-  title={Signal Processing Meets SGD: From Momentum to Filter},
-  author={Yao, Zhipeng and Yu, Rui and Chang, Guisong and Li, Ying and Zhang, Yu and Li, Dazhou},
-  journal={arXiv preprint arXiv:2311.02818v7},
-  year={2023}
-}
-```
