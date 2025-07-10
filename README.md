@@ -1,5 +1,4 @@
 <h1 align="center">SGDF Optimizer</h1>
-<h3 align="center">Signal Processing Meets SGD: From Momentum to Filter</h3>
 
 ## Related GitHub Repositories
 * Some of the experimental code in our paper was borrowed from the following repositories, thanks to these authors for open source.
