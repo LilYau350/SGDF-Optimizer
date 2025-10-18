@@ -40,9 +40,9 @@ model_names = sorted(name for name in models.__dict__
     and callable(models.__dict__[name]))
 
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
-parser.add_argument('--data', metavar='DIR',default='/root/data/ILSVRC2012',#'/data/ILSVRC2012',#
+parser.add_argument('--data', metavar='DIR',default='/data/ImageNet/ILSVRC2012',#'/data/ILSVRC2012',#
                     help='path to dataset')
-parser.add_argument('-a', '--arch', metavar='ARCH', default='vgg11',
+parser.add_argument('-a', '--arch', metavar='ARCH', default='resnet18',
                     help='model architecture: ' +
                         ' | '.join(model_names) +
                         ' (default: resnet18)')
@@ -55,7 +55,7 @@ parser.add_argument('--reset_resume_optim', default=False, dest='reset_resume_op
 parser.add_argument('--epochs', default=90, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--when', nargs='+', type=int, default=[30,60,90])
-parser.add_argument('--save_epoch', default=100, type=int, metavar='N',
+parser.add_argument('--save_epoch', default=120, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
                     help='manual epoch number (useful on restarts)')
@@ -111,8 +111,19 @@ def main():
 
 
 def main_worker(args):
-    filename = 'model-{}-optimizer-{}-lr-{}-epochs-{}-eps{}-beta1{}-beta2{}-wd{}-batch{}-lr_decay-{}'.format(
-        args.arch, args.optimizer, args.lr, args.epochs, args.eps, args.beta1, args.beta2, args.weight_decay, args.batch_size, args.lr_decay)
+    log_dir = os.path.join(os.getcwd(), "results")
+    os.makedirs(log_dir, exist_ok=True)
+
+    filename = os.path.join(
+        log_dir,
+        'model-{}-optimizer-{}-lr-{}-epochs-{}-eps{}-beta1{}-beta2{}-wd{}-batch{}-lr_decay-{}-seed{}'.format(
+            args.arch, args.optimizer, args.lr, args.epochs, args.eps, args.beta1,
+            args.beta2, args.weight_decay, args.batch_size, args.lr_decay, args.seed
+        )
+)
+
+    # filename = 'model-{}-optimizer-{}-lr-{}-epochs-{}-eps{}-beta1{}-beta2{}-wd{}-batch{}-lr_decay-{}-seed{}'.format(
+    #     args.arch, args.optimizer, args.lr, args.epochs, args.eps, args.beta1, args.beta2, args.weight_decay, args.batch_size, args.lr_decay, args.seed)
     
     if dist_util.is_main_process():
         print(filename)
@@ -134,12 +145,23 @@ def main_worker(args):
     else:
         if dist_util.is_main_process():
             print("=> creating model '{}'".format(args.arch))
-        if args.arch == 'resnet50':
-            model = models.resnet50()
+        if args.arch == 'resnet18':
+            model = models.resnet18()
+        elif args.arch == 'resnet34':
+            model = models.resnet34()
+        elif args.arch == 'resnet50':
+            model = models.resnet50()     
+                     
         elif args.arch == 'vgg11':
             model = models.vgg11_bn()
+        elif args.arch == 'vgg13':
+            model = models.vgg13_bn()
+            
+        elif args.arch == 'densenet121':
+            model = models.densenet121()            
         elif args.arch == 'densenet161':
             model = models.densenet161()
+            
         elif args.arch == 'shufflenet_v2_x0_5':
             model = shufflenet_v2_x0_5(pretrained=False)
         elif args.arch == 'se_resnet18':
