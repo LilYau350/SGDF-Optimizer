@@ -97,10 +97,10 @@ def set_random_seed(seed):
     
 
 def main_worker(args):
-
+    effective_batch_size = args.batch_size * args.gradient_accumulation_steps
     filename = 'model-{}-dataset-{}-optimizer-{}-lr-{}-epochs-{}-eps{}-beta1{}-beta2{}-wd{}-batch-{}'.\
-        format(args.model_type, args.dataset, args.optimizer, args.lr, args.epochs, args.eps, args.beta1, args.beta2, args.weight_decay, args.batch_size)
-        
+        format(args.model_type, args.dataset, args.optimizer, args.lr, args.epochs, args.eps, args.beta1, args.beta2, args.weight_decay, effective_batch_size)
+  
     if dist_util.is_main_process():
         print(filename)
 
