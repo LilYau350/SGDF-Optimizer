@@ -4,14 +4,17 @@ import torch.nn as nn
 from torch.optim.optimizer import Optimizer
 
 class SGDF(Optimizer):
-    def __init__(self, params, lr=1, betas=(0.9, 0.999), eps=1e-8, weight_decay=0.0):
+    def __init__(self, params, lr=1, betas=(0.9, 0.999), eps=1e-8, gamma=0.5, weight_decay=0.0):
         if lr <= 0.0:
             raise ValueError('Invalid learning rate: {}'.format(lr))
-        if not 0.0 <= eps:
-            raise ValueError("Invalid epsilon value: {}".format(eps))
         if betas[0] < 0.0 or betas[1] < 0.0:
             raise ValueError('Invalid beta value: {}'.format(betas))   
-        defaults = dict(lr=lr, betas=betas, eps=eps, weight_decay=weight_decay)
+        if not 0.0 <= eps:
+            raise ValueError("Invalid epsilon value: {}".format(eps))
+        if not 0.0 < gamma:
+            raise ValueError("Invalid gamma value: {}".format(gamma))
+
+        defaults = dict(lr=lr, betas=betas, eps=eps, gamma=gamma, weight_decay=weight_decay)
         super(SGDF, self).__init__(params, defaults)
 
     def step(self, closure=None):
@@ -22,6 +25,7 @@ class SGDF(Optimizer):
         for group in self.param_groups:
             lr = group['lr']
             eps = group['eps']
+            gamma = group['gamma']
             beta1, beta2 = group['betas']
             weight_decay = group['weight_decay']
 
@@ -62,10 +66,10 @@ class SGDF(Optimizer):
                 exp_var_corr = exp_var / bias_correction2
 
                 # Wiener gain
-                K = exp_var_corr / (exp_var_corr + (grad - exp_avg_corr).pow(2).add_(eps))
-
+                K = exp_var_corr/(exp_var_corr + (grad - exp_avg_corr).pow(2)).add_(eps)
+                
                 grad_hat_residual = grad - exp_avg_corr
-                grad_hat = exp_avg_corr + 2 * K * grad_hat_residual
+                grad_hat = exp_avg_corr + K.pow(gamma) * grad_hat_residual
 
                 p.data.add_(grad_hat, alpha=-lr)
                                 
