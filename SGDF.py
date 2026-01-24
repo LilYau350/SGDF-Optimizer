@@ -68,7 +68,6 @@ class SGDF(Optimizer):
       - use_muon (bool): apply Muon postprocess to update for ndim>=2 params
       - ns_steps (int): Newton–Schulz steps for Muon postprocess (default 5, must be >=2 if use_muon)
       - use_sign (bool): apply sign() to update
-        Note: if use_muon=True and param.ndim>=2, Muon takes precedence over sign.
     """
     def __init__(self,params, lr=0.5, betas=(0.9, 0.999), eps=1e-8, gamma=0.5, weight_decay=0.0, 
                             weight_decouple=False, use_sign=False, use_muon=False, ns_steps=5,):
@@ -134,43 +133,43 @@ class SGDF(Optimizer):
 
                 # Compute gradient 1st and 2nd 
                 exp_avg.mul_(beta1).add_(grad, alpha=1 - beta1)
-                
-                grad_residual = (grad - exp_avg)
-                
+
+                grad_residual = grad - exp_avg
                 exp_var.mul_(beta2).addcmul_(grad_residual, grad_residual, value=1 - beta2)
 
                 state['step'] += 1
 
-                # Bias correction
                 bias_correction1 = 1 - beta1 ** state['step']
                 bias_correction2 = (1 + beta1) * (1 - beta2**state['step']) / ((1 - beta1) * (1 - beta1**(2*state['step'])))
-                
-                exp_avg_corr = exp_avg / bias_correction1
-                exp_var_corr = exp_var / bias_correction2
+                inv_bias_correction1 = 1.0 / bias_correction1
 
-                # Estimation gain
-                grad_hat_residual = grad - exp_avg_corr                 
-                denom = grad_hat_residual.square()             
-                denom.add_(exp_var_corr).add_(eps) 
-                K = exp_var_corr.div_(denom)
-                
-                # apply gamma in-place on K
+                # grad_residual: from (g - m)  ->  r = (g - m_hat) = (g - m) + (1 - inv_bc1)*m
+                grad_residual.add_(exp_avg, alpha=1.0 - inv_bias_correction1)
+
+                denom = grad_residual.square()
+                denom.add_(eps).mul_(bias_correction2).add_(exp_var)
+
+                # denom <- K = exp_var / denom
+                denom.reciprocal_().mul_(exp_var)
+
+                # denom <- K^gamma
                 if gamma == 1.0:
                     pass
                 elif gamma == 0.5:
-                    K.sqrt_()
+                    denom.sqrt_()
                 else:
-                    K.pow_(gamma)
-    
-                # Gradient estimation
-                update = exp_avg_corr + K * grad_hat_residual
+                    denom.pow_(gamma)
 
-                # -------- muon / sign --------
-                if use_muon and update.ndim >= 2:
-                    update = muon_postprocess(update, ns_steps=ns_steps)
-                elif use_sign:
-                    update = update.sign_()
+                if use_muon or use_sign:
+                    update = denom * grad_residual
+                    update.add_(exp_avg, alpha=inv_bias_correction1)
 
-                p.add_(update, alpha=-lr)
+                    if use_muon and update.ndim >= 2:
+                        update = muon_postprocess(update, ns_steps=ns_steps)
+                    elif use_sign:
+                        update = update.sign_()
 
-        return loss
+                    p.add_(update, alpha=-lr)
+                else:
+                    p.add_(exp_avg, alpha=-lr * inv_bias_correction1)
+                    p.addcmul_(denom, grad_residual, value=-lr)
