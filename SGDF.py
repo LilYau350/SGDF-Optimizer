@@ -149,11 +149,21 @@ class SGDF(Optimizer):
                 exp_var_corr = exp_var / bias_correction2
 
                 # Estimation gain
-                K = exp_var_corr/(exp_var_corr + (grad - exp_avg_corr).pow(2)).add_(eps)
-                grad_hat_residual = grad - exp_avg_corr
+                grad_hat_residual = grad - exp_avg_corr                 
+                denom = grad_hat_residual.square()             
+                denom.add_(exp_var_corr).add_(eps) 
+                K = exp_var_corr.div_(denom)
                 
+                # apply gamma in-place on K
+                if gamma == 1.0:
+                    pass
+                elif gamma == 0.5:
+                    K.sqrt_()
+                else:
+                    K.pow_(gamma)
+    
                 # Gradient estimation
-                update = exp_avg_corr + K.pow(gamma) * grad_hat_residual
+                update = exp_avg_corr + K * grad_hat_residual
 
                 # -------- muon / sign --------
                 if use_muon and update.ndim >= 2:
