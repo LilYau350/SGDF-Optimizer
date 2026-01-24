@@ -65,7 +65,7 @@ class SGDF(Optimizer):
                 exp_avg_corr = exp_avg / bias_correction1
                 exp_var_corr = exp_var / bias_correction2
 
-                # Wiener gain
+                # Estimation gain
                 K = exp_var_corr/(exp_var_corr + (grad - exp_avg_corr).pow(2)).add_(eps)
                 
                 grad_hat_residual = grad - exp_avg_corr
