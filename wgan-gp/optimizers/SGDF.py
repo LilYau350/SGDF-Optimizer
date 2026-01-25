@@ -59,17 +59,25 @@ class SGDF(Optimizer):
 
                 # Bias correction
                 bias_correction1 = 1 - beta1 ** state['step']
-                #bias_correction2 = 1 - beta2 ** state['step']
                 bias_correction2 = (1 + beta1) * (1 - beta2**state['step']) / ((1 - beta1) * (1 - beta1**(2*state['step'])))
                 
                 exp_avg_corr = exp_avg / bias_correction1
                 exp_var_corr = exp_var / bias_correction2
 
                 # Estimation gain
-                K = exp_var_corr/(exp_var_corr + (grad - exp_avg_corr).pow(2)).add_(eps)
+                denom = exp_var_corr + (grad - exp_avg_corr).pow(2) 
+                K = exp_var_corr / denom.add_(eps)
                 
+                # Based on gamma, apply transformations to K
+                if gamma == 1.0:
+                    pass  # No change to K
+                elif gamma == 0.5:
+                    K = K.sqrt_()  # Take square root of K
+                else:
+                    K = K.pow_(gamma)
+                    
                 grad_hat_residual = grad - exp_avg_corr
-                grad_hat = exp_avg_corr + K.pow(gamma) * grad_hat_residual
+                grad_hat = exp_avg_corr + K * grad_hat_residual
 
                 p.data.add_(grad_hat, alpha=-lr)
                                 
