@@ -147,8 +147,7 @@ class SGDF(Optimizer):
                 grad_residual.add_(exp_avg, alpha=1.0 - inv_bias_correction1)
 
                 denom = grad_residual.square()
-                denom.add_(eps).mul_(bias_correction2).add_(exp_var)
-
+                denom.mul_(bias_correction2).add_(exp_var).add_(eps)
                 # denom <- K = exp_var / denom
                 denom.reciprocal_().mul_(exp_var)
 
