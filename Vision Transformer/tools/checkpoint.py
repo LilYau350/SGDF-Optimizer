@@ -5,7 +5,7 @@ from torchvision import transforms, datasets
 from torch.utils.data import DataLoader, RandomSampler, DistributedSampler, SequentialSampler
 import tools.dist_util as dist_util
 import torch.optim
-from optimizers import AdaBound, AdaBelief, RAdam, SGDF, MSVAG
+from optimizers import AdaBound, AdaBelief, RAdam, SGDF, MSVAG, AdamW, Lion, SophiaG
 
 def build_optimizer(args, model):
         # define optimizer
@@ -21,7 +21,11 @@ def build_optimizer(args, model):
     elif args.optimizer == 'radam':
         optimizer = RAdam(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decay = args.weight_decay)
     elif args.optimizer == 'adamw':
-        optimizer = torch.optim.AdamW(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decay = args.weight_decay)
+        optimizer = AdamW(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decay = args.weight_decay)
+    elif args.optim == 'lion':
+        return Lion(model.parameters(), args.lr, betas=(args.beta1, args.beta2), weight_decay=args.weight_decay)
+    elif args.optim == 'sophia':
+        return SophiaG(model.parameters(), args.lr, betas=(args.beta1, args.beta2), rho=args.rho, weight_decay=args.weight_decay)
     elif args.optimizer == 'sgdf':
         optimizer = SGDF(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decay = args.weight_decay)
     elif args.optimizer == 'msvag':

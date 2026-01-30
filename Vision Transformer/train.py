@@ -50,6 +50,7 @@ parser.add_argument("--lr", default=0.5, type=float, help="The initial learning 
 parser.add_argument('--momentum', default=0.9, type=float, metavar='M', help='momentum')
 parser.add_argument('--beta1', default=0.9, type=float, help='beta1 in SGDF')
 parser.add_argument('--beta2', default=0.999, type=float, help='beta2 in SGDF')
+parser.add_argument('--rho', default=0.04, type=float, help='rho for sophia') 
 parser.add_argument('--eps', default=1e-8, type=float, help='eps in SGDF')
 parser.add_argument("--weight_decay", default=0.0, type=float, help="Weight deay if we apply some.")
 parser.add_argument('--weight_decouple', default=True, type=bool, help='Weight decouple in Adabelief')

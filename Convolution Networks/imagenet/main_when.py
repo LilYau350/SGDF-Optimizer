@@ -20,7 +20,7 @@ from adabound import AdaBound
 from shufflenet import *
 from senet import *
 import pandas as pd
-from optimizers import MSVAG, SGDF, AdaBound, Lion, SophiaG,AdaBelief, AdamW, RAdam, SGD_GC
+from optimizers import SGD_GC, SGDF, AdaBound, AdaBelief, AdamW, Lion, SophiaG, RAdam, MSVAG
 import dist_util
 from torch.nn import SyncBatchNorm
 import torch.distributed as dist
