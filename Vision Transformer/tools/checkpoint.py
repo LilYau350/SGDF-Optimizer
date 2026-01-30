@@ -21,7 +21,7 @@ def build_optimizer(args, model):
     elif args.optimizer == 'radam':
         optimizer = RAdam(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decay = args.weight_decay)
     elif args.optimizer == 'adamw':
-        optimizer = AdamW(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decay = args.weight_decay)
+        optimizer = torch.optim.AdamW(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decay = args.weight_decay)
     elif args.optim == 'lion':
         return Lion(model.parameters(), args.lr, betas=(args.beta1, args.beta2), weight_decay=args.weight_decay)
     elif args.optim == 'sophia':
