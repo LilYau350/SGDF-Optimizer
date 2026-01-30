@@ -6,3 +6,5 @@ from .MSVAG import MSVAG
 from .RAdam import RAdam
 from .AdamW import AdamW
 from .SGDF import SGDF
+from .Lion import Lion
+from .Sophia import SophiaG
