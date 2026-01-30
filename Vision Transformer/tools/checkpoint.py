@@ -27,7 +27,8 @@ def build_optimizer(args, model):
     elif args.optim == 'sophia':
         return SophiaG(model.parameters(), args.lr, betas=(args.beta1, args.beta2), rho=args.rho, weight_decay=args.weight_decay)
     elif args.optimizer == 'sgdf':
-        optimizer = SGDF(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decay = args.weight_decay)
+        optimizer = SGDF(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decay = args.weight_decay,
+                        weight_decouple=args.weight_decouple, use_sign=args.use_sign)
     elif args.optimizer == 'msvag':
         optimizer = MSVAG(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decay = args.weight_decay)
     else:
