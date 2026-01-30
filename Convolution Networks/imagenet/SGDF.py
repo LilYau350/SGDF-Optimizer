@@ -74,14 +74,14 @@ class SGDF(Optimizer):
                 bias_correction2 = (1 + beta1) * (1 - beta2**state['step']) / ((1 - beta1) * (1 - beta1**(2*state['step'])))
                 
                 exp_avg_corr = exp_avg / bias_correction1
-                exp_var_corr = exp_var / bias_correction2
-
+                # exp_var_corr is NOT computed explicitly to save memory and stability
                 
+                # Residual for update
                 grad_hat_residual = grad - exp_avg_corr
-            
+                
                 # Estimation gain
-                denom = exp_var_corr + grad_hat_residual.pow(2) 
-                K = exp_var_corr / denom.add_(eps)
+                denom = grad_hat_residual.pow(2).add_(eps).mul_(bias_correction2).add_(exp_var)
+                K = exp_var / denom
                 
                 # denom <- K^gamma
                 if gamma == 1.0:
