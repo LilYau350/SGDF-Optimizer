@@ -1,3 +1,7 @@
+"""
+forked from https://github.com/pytorch/pytorch/blob/master/torch/optim/adamw.py
+"""
+
 import math
 import torch
 from torch.optim.optimizer import Optimizer
