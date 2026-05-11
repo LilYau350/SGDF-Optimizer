@@ -105,21 +105,6 @@ Some of the experimental code in our paper was borrowed from the following repos
 - https://github.com/jeonsworld/ViT-pytorch
 
 
-## 🛠️ Hyper-parameters
-
-### 🔧 Hyper-parameters in PyTorch
-
-> ⚠️ **Note:** Weight decay varies across tasks. For each task, we follow the original repository settings and only replace the optimizer and its related hyper-parameters.
-
-|           Task            | lr   | beta1 | beta2 | epsilon | weight_decay |
-| :-----------------------: | :--- | :---- | :---- | :------ | :----------- |
-|           CIFAR           | 5e-1 | 0.9   | 0.999 | 1e-8    | 5e-4         |
-|         ImageNet          | 5e-1 | 0.5   | 0.999 | 1e-8    | 1e-4         |
-|            ViT            | 5e-1 | 0.9   | 0.999 | 1e-8    | 0            |
-|           WGAN            | 1e-2 | 0.5   | 0.999 | 1e-8    | 0            |
-| Object Detection (PASCAL) | 1e-2 | 0.9   | 0.999 | 1e-8    | 1e-4         |
-
-
 ## 📚 Citation
 
 If you find this repository useful, please consider giving it a star ⭐ and citing our work 📄.
