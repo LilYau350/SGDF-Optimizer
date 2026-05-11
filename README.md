@@ -105,6 +105,10 @@ Some of the experimental code in our paper was borrowed from the following repos
 - https://github.com/jeonsworld/ViT-pytorch
 
 
+## 📄 License
+
+This project is released under the MIT License. See [LICENSE](./LICENSE) for details.
+
 ## 📚 Citation
 
 If you find this repository useful, please consider giving it a star ⭐ and citing our work 📄.
