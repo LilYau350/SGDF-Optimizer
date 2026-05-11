@@ -59,6 +59,8 @@ SGDF achieves consistent improvements across image classification, object detect
 
 ![CIFAR results](./imgs/CIFAR.png)
 
+---
+
 **ImageNet Top-1 Accuracy (%)**
 
 | Method | VGG11 | VGG13 | ResNet34 | ResNet50 | DenseNet121 | DenseNet161 |
