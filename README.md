@@ -43,9 +43,6 @@ SGDF formulates gradient estimation as an online filtering problem. Instead of r
 
 ![SGDF Algorithm](./imgs/SGDF%20Algorithm.png)
 
-<!-- <p align="center">
-  <img src="./imgs/SGDF Algorithm.png" width="100%" alt="SGDF Algorithm">
-</p> -->
 
 
 ## 🏆 Main Results
