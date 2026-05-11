@@ -34,14 +34,10 @@
 SGDF formulates gradient estimation as an online filtering problem. Instead of relying on a fixed momentum coefficient, SGDF dynamically computes a time-varying gain to fuse the historical momentum estimate and the current stochastic gradient.
 
 <p align="center">
-  <img src="./imgs/SGDF_Algorithm.png" width="85%" alt="SGDF Algorithm">
+  <img src="/imgs/SGDF_Algorithm.png" width="85%" alt="SGDF Algorithm">
 </p>
 
-<p align="center">
-  <a href="./imgs/SGDF%20Algorithm.pdf">
-    📄 View high-resolution algorithm PDF
-  </a>
-</p>
+
 
 
 ## 🏆 Main Results
