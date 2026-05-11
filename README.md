@@ -20,12 +20,8 @@
 <h4 align="center">CVPR 2026</h4>
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2603.06120">
-    <img src="https://img.shields.io/badge/arXiv-2603.06120-b31b1b.svg" alt="arXiv">
-  </a>
-  <a href="https://pytorch.org/get-started/locally/">
-    <img src="https://img.shields.io/badge/PyTorch-2.0.0%2B-red.svg" alt="PyTorch">
-  </a>
+  <a href="https://arxiv.org/abs/2603.06120"><img src="https://img.shields.io/badge/arXiv-2603.06120-b31b1b.svg" alt="arXiv"></a>
+  <a href="https://pytorch.org/get-started/locally/"><img src="https://img.shields.io/badge/PyTorch-2.0.0%2B-red.svg" alt="PyTorch"></a>
 </p>
 
 
