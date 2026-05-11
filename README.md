@@ -44,7 +44,11 @@ SGDF formulates gradient estimation as an online filtering problem. Instead of r
 
 SGDF achieves consistent improvements across image classification, object detection, and ViT post-training benchmarks.
 
-### Part A: Generalization Across CNN Architectures  
+### Part A: Generalization Across CNN Architectures 
+**CIFAR Top-1 Accuracy (%)**
+
+![CIFAR results](./imgs/CIFAR.png)
+
 **ImageNet Top-1 Accuracy (%)**
 
 | Method | VGG11 | VGG13 | ResNet34 | ResNet50 | DenseNet121 | DenseNet161 |
@@ -84,6 +88,8 @@ SGDF achieves consistent improvements across image classification, object detect
 | mAP | 75.21 | 78.48 | 78.67 | 80.43 | 80.62 | 81.02 | **83.81** |
 
 > 📌 SGDF consistently improves over SGD and conventional momentum-based optimizers across CNN classification, object detection, and frozen-backbone ViT post-training.
+
+
 ## 🎓 Related GitHub Repositories
 
 Some of the experimental code in our paper was borrowed from the following repositories. We sincerely thank these authors for their excellent open-source contributions.
