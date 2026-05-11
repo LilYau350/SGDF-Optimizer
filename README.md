@@ -34,19 +34,46 @@
 
 SGDF achieves consistent improvements across image classification, object detection, and ViT post-training benchmarks.
 
-| Benchmark | Model / Task | Baseline | SGDF |
-| :-------- | :----------- | :------: | :--: |
-| ImageNet Classification | ResNet18 Top-1 Acc. (%) | SGD: 70.23 | **70.51 ± 0.05** |
-| ImageNet Classification | ResNet18 Top-5 Acc. (%) | SGD: 89.40 | **89.69 ± 0.16** |
-| ImageNet Classification | ResNet50 Top-1 Acc. (%) | SGD: 76.13 | **76.72 ± 0.09** |
-| ImageNet Classification | DenseNet161 Top-1 Acc. (%) | SGD: 77.13 | **78.34 ± 0.08** |
-| Object Detection | Faster R-CNN on PASCAL VOC mAP (%) | SGD: 80.43 | **83.81** |
-| ViT Post-training | ViT-B/32 on CIFAR-100 Top-1 Acc. (%) | SGD: 90.62 ± 0.07 | **91.44 ± 0.13** |
-| ViT Post-training | ViT-B/32 on Oxford-IIIT-Pets Top-1 Acc. (%) | SGD: 89.71 ± 0.32 | **92.68 ± 0.04** |
-| ViT Post-training | ViT-L/32 on CIFAR-100 Top-1 Acc. (%) | SGD: 91.30 ± 0.17 | **92.20 ± 0.14** |
+### Part A: Generalization Across CNN Architectures  
+**ImageNet Top-1 Accuracy (%)**
 
-> 📌 SGDF consistently improves over SGD and conventional momentum-based optimizers across CNNs, object detection, and frozen-backbone ViT post-training.
-> 
+| Method | VGG11 | VGG13 | ResNet34 | ResNet50 | DenseNet121 | DenseNet161 |
+| :----- | :---: | :---: | :------: | :------: | :---------: | :---------: |
+| SGD | 70.37 | 71.58 | 73.31 | 76.13 | 74.43 | 77.13 |
+| **SGDF** | **71.34** | **72.74** | **74.07** | **76.72** | **75.75** | **78.34** |
+
+---
+
+### Part B: Frozen-backbone ViT Post-training  
+**Top-1 Accuracy (%)**
+
+| Model | Method | CIFAR-10 | CIFAR-100 | OxfordPets | OxfordFlowers | Food101 | ImageNet | Avg |
+| :---- | :----- | :------: | :-------: | :--------: | :-----------: | :-----: | :------: | :--: |
+| ViT-B/32 | SGD | 98.71 | 90.62 | 89.71 | 96.79 | 88.56 | 81.42 | 90.97 |
+| ViT-B/32 | **SGDF** | **98.74** | **91.44** | **92.68** | **97.17** | **89.35** | **81.52** | **91.81** |
+| ViT-L/32 | SGD | 98.73 | 91.30 | 85.21 | 96.52 | 89.13 | 81.28 | 90.36 |
+| ViT-L/32 | **SGDF** | **98.83** | **92.20** | **91.96** | **96.79** | **90.04** | **81.38** | **91.87** |
+
+---
+
+### Part C: Comparison with State-of-the-Art Optimizers  
+**ResNet18 on ImageNet**
+
+| Metric | SGDF | SGD | PAdam | AdaBelief | AdaBound | Yogi | MSVAG | Adam | RAdam | AdamW |
+| :----- | :--: | :-: | :---: | :-------: | :------: | :--: | :---: | :--: | :---: | :---: |
+| Top-1 | **70.51** | 70.23 | 70.07 | 70.08 | 68.13 | 68.23 | 65.99 | 63.79 | 67.62 | 67.93 |
+| Top-5 | **89.69** | 89.40 | 89.47 | - | 88.55 | 88.59 | - | 85.61 | - | 88.47 |
+
+---
+
+### Part D: Object Detection  
+**Faster R-CNN on PASCAL VOC mAP (%)**
+
+| Method | RAdam | AdamW | Adam | SGD | EAdam | AdaBelief | SGDF |
+| :----- | :---: | :---: | :--: | :-: | :---: | :-------: | :--: |
+| mAP | 75.21 | 78.48 | 78.67 | 80.43 | 80.62 | 81.02 | **83.81** |
+
+> 📌 SGDF consistently improves over SGD and conventional momentum-based optimizers across CNN classification, object detection, and frozen-backbone ViT post-training.
 ## 🎓 Related GitHub Repositories
 
 Some of the experimental code in our paper was borrowed from the following repositories. We sincerely thank these authors for their excellent open-source contributions.
