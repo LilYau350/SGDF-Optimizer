@@ -100,6 +100,14 @@ SGDF achieves consistent improvements across image classification, object detect
 > 📌 SGDF consistently improves over SGD and conventional momentum-based optimizers across CNN classification, object detection, and frozen-backbone ViT post-training.
 
 
+## 🔁 Reproducing Results
+
+The experimental code is organized by benchmark. Please refer to the corresponding subdirectories for detailed training scripts and configurations.
+
+- `Convolution Networks/`: CIFAR and ImageNet classification experiments.
+- `Vision Transformer/`: frozen-backbone ViT post-training experiments.
+- `Language Modeling/ LSTM/`: language modeling experiments.
+- 
 ## 🎓 Related GitHub Repositories
 
 Some of the experimental code in our paper was borrowed from the following repositories. We sincerely thank these authors for their excellent open-source contributions.
