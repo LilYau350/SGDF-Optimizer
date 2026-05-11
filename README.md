@@ -23,16 +23,14 @@
   <a href="https://arxiv.org/abs/2603.06120">
     <img src="https://img.shields.io/badge/arXiv-2603.06120-b31b1b.svg" alt="arXiv">
   </a>
-  <img src="https://img.shields.io/badge/PyTorch-%3E%3D1.10-red.svg" alt="PyTorch">
+  <img src="https://img.shields.io/badge/PyTorch-2.0.0%2B-red.svg" alt="PyTorch">
 </p>
 
----
 
 ## 📌 Abstract
 
 *Stochastic Gradient Descent (SGD) and its momentum variants form the backbone of deep learning optimization, yet the underlying dynamics of their gradient behavior remain insufficiently understood. In this work, we reinterpret gradient updates through the lens of signal processing and reveal that fixed momentum coefficients inherently distort the balance between bias and variance, leading to skewed or suboptimal parameter updates. To address this, we propose SGDF (SGD with Filter), an optimizer inspired by the principles of Optimal Linear Filtering. SGDF computes an online, time-varying gain to dynamically refine gradient estimation by minimizing the mean-squared error, thereby achieving an optimal trade-off between noise suppression and signal preservation. Furthermore, our approach can be extended to other optimizers, showcasing its broad applicability to optimization frameworks. Extensive experiments across diverse architectures and benchmarks demonstrate that SGDF surpasses conventional momentum methods and achieves performance on par with or beyond state-of-the-art optimizers.*
 
----
 
 ## 🎓 Related GitHub Repositories
 
@@ -43,7 +41,6 @@ Some of the experimental code in our paper was borrowed from the following repos
 - https://github.com/juntang-zhuang/Adabelief-Optimizer
 - https://github.com/jeonsworld/ViT-pytorch
 
----
 
 ## 🛠️ Hyper-parameters
 
@@ -59,7 +56,6 @@ Some of the experimental code in our paper was borrowed from the following repos
 |           WGAN            | 1e-2 | 0.5   | 0.999 | 1e-8    | 0            |
 | Object Detection (PASCAL) | 1e-2 | 0.9   | 0.999 | 1e-8    | 1e-4         |
 
----
 
 ## 📚 Citation
 
