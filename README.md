@@ -99,6 +99,8 @@ SGDF achieves consistent improvements across image classification, object detect
 | :----- | :---: | :---: | :--: | :-: | :---: | :-------: | :--: |
 | mAP | 75.21 | 78.48 | 78.67 | 80.43 | 80.62 | 81.02 | **83.81** |
 
+---
+
 > 📌 SGDF consistently improves over SGD and conventional momentum-based optimizers across CNN classification, object detection, and frozen-backbone ViT post-training.
 
 
