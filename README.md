@@ -47,12 +47,12 @@ SGDF achieves consistent improvements across image classification, object detect
 ### Part B: Frozen-backbone ViT Post-training  
 **Top-1 Accuracy (%)**
 
-| Model | Method | CIFAR-10 | CIFAR-100 | OxfordPets | OxfordFlowers | Food101 | ImageNet | Avg |
-| :---- | :----- | :------: | :-------: | :--------: | :-----------: | :-----: | :------: | :--: |
+| Model | Method | CIFAR-10 | CIFAR-100 | OxfordPets | OxfordFlowers | Food101 | ImageNet |
+| :---- | :----- | :------: | :-------: | :--------: | :-----------: | :-----: | :------: | 
 | ViT-B/32 | SGD | 98.71 | 90.62 | 89.71 | 96.79 | 88.56 | 81.42 | 90.97 |
-| ViT-B/32 | **SGDF** | **98.74** | **91.44** | **92.68** | **97.17** | **89.35** | **81.52** | **91.81** |
+| ViT-B/32 | **SGDF** | **98.74** | **91.44** | **92.68** | **97.17** | **89.35** | **81.52** |
 | ViT-L/32 | SGD | 98.73 | 91.30 | 85.21 | 96.52 | 89.13 | 81.28 | 90.36 |
-| ViT-L/32 | **SGDF** | **98.83** | **92.20** | **91.96** | **96.79** | **90.04** | **81.38** | **91.87** |
+| ViT-L/32 | **SGDF** | **98.83** | **92.20** | **91.96** | **96.79** | **90.04** | **81.38** |
 
 ---
 
