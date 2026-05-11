@@ -30,6 +30,23 @@
 *Stochastic Gradient Descent (SGD) and its momentum variants form the backbone of deep learning optimization, yet the underlying dynamics of their gradient behavior remain insufficiently understood. In this work, we reinterpret gradient updates through the lens of signal processing and reveal that fixed momentum coefficients inherently distort the balance between bias and variance, leading to skewed or suboptimal parameter updates. To address this, we propose SGDF (SGD with Filter), an optimizer inspired by the principles of Optimal Linear Filtering. SGDF computes an online, time-varying gain to dynamically refine gradient estimation by minimizing the mean-squared error, thereby achieving an optimal trade-off between noise suppression and signal preservation. Furthermore, our approach can be extended to other optimizers, showcasing its broad applicability to optimization frameworks. Extensive experiments across diverse architectures and benchmarks demonstrate that SGDF surpasses conventional momentum methods and achieves performance on par with or beyond state-of-the-art optimizers.*
 
 
+## 🏆 Main Results
+
+SGDF achieves consistent improvements across image classification, object detection, and ViT post-training benchmarks.
+
+| Benchmark | Model / Task | Baseline | SGDF |
+| :-------- | :----------- | :------: | :--: |
+| ImageNet Classification | ResNet18 Top-1 Acc. (%) | SGD: 70.23 | **70.51 ± 0.05** |
+| ImageNet Classification | ResNet18 Top-5 Acc. (%) | SGD: 89.40 | **89.69 ± 0.16** |
+| ImageNet Classification | ResNet50 Top-1 Acc. (%) | SGD: 76.13 | **76.72 ± 0.09** |
+| ImageNet Classification | DenseNet161 Top-1 Acc. (%) | SGD: 77.13 | **78.34 ± 0.08** |
+| Object Detection | Faster R-CNN on PASCAL VOC mAP (%) | SGD: 80.43 | **83.81** |
+| ViT Post-training | ViT-B/32 on CIFAR-100 Top-1 Acc. (%) | SGD: 90.62 ± 0.07 | **91.44 ± 0.13** |
+| ViT Post-training | ViT-B/32 on Oxford-IIIT-Pets Top-1 Acc. (%) | SGD: 89.71 ± 0.32 | **92.68 ± 0.04** |
+| ViT Post-training | ViT-L/32 on CIFAR-100 Top-1 Acc. (%) | SGD: 91.30 ± 0.17 | **92.20 ± 0.14** |
+
+> 📌 SGDF consistently improves over SGD and conventional momentum-based optimizers across CNNs, object detection, and frozen-backbone ViT post-training.
+> 
 ## 🎓 Related GitHub Repositories
 
 Some of the experimental code in our paper was borrowed from the following repositories. We sincerely thank these authors for their excellent open-source contributions.
