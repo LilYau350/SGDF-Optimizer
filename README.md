@@ -35,9 +35,7 @@ Standard momentum methods use fixed coefficients, which often force a rigid trad
 
 To illustrate this issue, we visualize the gradient distributions of different momentum variants. Compared with SGD, SGD-EMA, and SGD-CM, SGDF produces a more stable and better-regulated gradient distribution, helping improve optimization stability and final convergence.
 
-<p align="center">
-  <img src="./imgs/histograms.png" width="100%" alt="Gradient distribution visualization">
-</p>
+![Gradient distribution visualization](./imgs/histograms.png)
 
 ## 🔧 Method
 
