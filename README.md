@@ -34,7 +34,7 @@
 - **2026.03**: SGDF was accepted to CVPR 2026.
 
 
-## Motivation
+## 💡 Motivation
 
 Standard momentum methods use fixed coefficients, which often force a rigid trade-off between gradient bias and gradient variance. Excessive smoothing may slow down convergence and trap the optimizer in plateaus, while insufficient regulation of stochastic noise can lead to unstable updates and oscillations.
 
