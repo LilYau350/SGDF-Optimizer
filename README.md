@@ -31,12 +31,19 @@
 
 ## Motivation
 
+Standard momentum methods use fixed coefficients, which often force a rigid trade-off between gradient bias and gradient variance. Excessive smoothing may slow down convergence and trap the optimizer in plateaus, while insufficient regulation of stochastic noise can lead to unstable updates and oscillations.
+
+To illustrate this issue, we visualize the gradient distributions of different momentum variants. Compared with SGD, SGD-EMA, and SGD-CM, SGDF produces a more stable and better-regulated gradient distribution, helping improve optimization stability and final convergence.
+
+<p align="center">
+  <img src="./imgs/histograms.png" width="100%" alt="Gradient distribution visualization">
+</p>
 
 ## 🔧 Method
 
 SGDF formulates gradient estimation as an online filtering problem. Instead of relying on a fixed momentum coefficient, SGDF dynamically computes a time-varying gain to fuse the historical momentum estimate and the current stochastic gradient.
 
-![SGDF Algorithm](./imgs/SGDF Algorithm.png)
+![SGDF Algorithm](./imgs/SGDF%20Algorithm.png)
 
 <!-- <p align="center">
   <img src="./imgs/SGDF Algorithm.png" width="100%" alt="SGDF Algorithm">
