@@ -222,7 +222,7 @@
         <div class="section-head"><div class="kicker">Motivation</div></div>
         <p class="muted">Standard momentum methods use fixed coefficients, which often force a rigid trade-off between gradient bias and gradient variance. Excessive smoothing may slow down convergence and trap the optimizer in plateaus, while insufficient regulation of stochastic noise can lead to unstable updates and oscillations.</p>
         <figure class="figure figure-spaced">
-          <img src="https://raw.githubusercontent.com/LilYau350/SGDF-Optimizer/master/imgs/histograms.png" alt="Gradient distribution for SGD vs SGDF showing reduced variance" loading="lazy" />
+          <img src="./imgs/histograms.png" alt="Gradient distribution for SGD vs SGDF showing reduced variance" loading="lazy" />
           <figcaption>Gradient distribution visualization.</figcaption>
         </figure>
       </div>
@@ -233,7 +233,7 @@
         <div class="section-head"><div class="kicker">Method</div></div>
         <p class="muted">SGDF formulates gradient estimation as an online filtering problem. Instead of relying on a fixed momentum coefficient, SGDF dynamically computes a time-varying gain to fuse the historical momentum estimate and the current stochastic gradient.</p>
         <figure class="figure figure-spaced">
-          <img src="https://raw.githubusercontent.com/LilYau350/SGDF-Optimizer/master/imgs/SGDF%20Algorithm.png" alt="Algorithm 1: SGDF online filter estimate gradient" loading="lazy"/>
+          <img src="./imgs/SGDF%20Algorithm.png" alt="Algorithm 1: SGDF online filter estimate gradient" loading="lazy"/>
           <figcaption>Algorithm 1: SGDF performs element-wise online filter estimation.</figcaption>
         </figure>
       </div>
@@ -254,7 +254,7 @@
         <p><strong>CIFAR Top-1 Accuracy (%)</strong></p>
 
         <figure class="figure">
-          <img src="https://raw.githubusercontent.com/LilYau350/SGDF-Optimizer/master/imgs/CIFAR.png" alt="CIFAR-10 and CIFAR-100 test accuracy curves across VGG, ResNet, and DenseNet" />
+          <img src="./imgs/CIFAR.png" alt="CIFAR-10 and CIFAR-100 test accuracy curves across VGG, ResNet, and DenseNet" />
           <figcaption>CIFAR-10/100 test accuracy across VGG, ResNet, and DenseNet.</figcaption>
         </figure>
 
