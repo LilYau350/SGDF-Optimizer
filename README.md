@@ -40,13 +40,13 @@ Standard momentum methods use fixed coefficients, which often force a rigid trad
 
 To illustrate this issue, we visualize the gradient distributions of different momentum variants. Compared with SGD, SGD-EMA, and SGD-CM, SGDF produces a more stable and better-regulated gradient distribution, helping improve optimization stability and final convergence.
 
-![Gradient distribution visualization](./imgs/histograms.png)
+![Gradient distribution visualization](https://raw.githubusercontent.com/LilYau350/SGDF-Optimizer/master/imgs/histograms.png)
 
 ## 🔧 Method
 
 SGDF formulates gradient estimation as an online filtering problem. Instead of relying on a fixed momentum coefficient, SGDF dynamically computes a time-varying gain to fuse the historical momentum estimate and the current stochastic gradient.
 
-![SGDF Algorithm](./imgs/SGDF%20Algorithm.png)
+![SGDF Algorithm](https://raw.githubusercontent.com/LilYau350/SGDF-Optimizer/master/imgs/SGDF%20Algorithm.png)
 
 
 
@@ -57,7 +57,7 @@ SGDF achieves consistent improvements across image classification, object detect
 ### Part A: Generalization Across CNN Architectures 
 **CIFAR Top-1 Accuracy (%)**
 
-![CIFAR results](./imgs/CIFAR.png)
+![CIFAR results](https://raw.githubusercontent.com/LilYau350/SGDF-Optimizer/master/imgs/CIFAR.png)
 
 ---
 
