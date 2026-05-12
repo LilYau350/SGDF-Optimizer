@@ -100,6 +100,23 @@
     }
     .keywords { margin-top: 18px; color: var(--muted); }
 
+    .publication-video {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      background: var(--soft);
+    }
+
+    .publication-video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
     /* Grid layout */
     .three-col { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
     .box h3 { margin-top: 0; margin-bottom: 8px; font-size: 17px; }
@@ -122,15 +139,15 @@
     pre { margin: 0; padding: 18px; overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--soft); font-family: var(--mono); font-size: 13px; line-height: 1.55; }
 
     #citation pre {
-    background: #f7f8fc;           /* 淡灰色背景 */
-    border-radius: 12px;           /* 圆角柔和 */
-    padding: 18px 24px;            /* 内边距增加可读性 */
-    overflow-x: auto;              /* 横向滚动，防止换行破坏布局 */
-    font-family: var(--mono);      /* 保留等宽字体 */
+    background: #f7f8fc;           
+    border-radius: 12px;           
+    padding: 18px 24px;            
+    overflow-x: auto;             
+    font-family: var(--mono);      
     font-size: 14px;
     line-height: 1.6;
-    border: none;                  /* 去掉原有边框，改成底色分隔 */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* 轻微阴影让引用浮起来 */
+    border: none;                 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
     }
 
     #citation h2 {
@@ -214,6 +231,25 @@
           Stochastic Gradient Descent (SGD) and its momentum variants form the backbone of deep learning optimization, yet the underlying dynamics of their gradient behavior remain insufficiently understood. In this work, we reinterpret gradient updates through the lens of signal processing and reveal that fixed momentum coefficients inherently distort the balance between bias and variance, leading to skewed or suboptimal parameter updates. To address this, we propose SGDF (SGD with Filter), an optimizer inspired by the principles of Optimal Linear Filtering. SGDF computes an online, time-varying gain to dynamically refine gradient estimation by minimizing the mean-squared error, thereby achieving an optimal trade-off between noise suppression and signal preservation. Furthermore, our approach can be extended to other optimizers, showcasing its broad applicability to optimization frameworks. Extensive experiments across diverse architectures and benchmarks demonstrate that SGDF surpasses conventional momentum methods and achieves performance on par with or beyond state-of-the-art optimizers.
         </p>
         <p class="keywords"><strong>Keywords:</strong> Optimization, Signal Processing, Bias and Variance, Estimation Theory</p>
+      </div>
+    </section>
+
+    <section id="video">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Video Presentation</div>
+          <!-- <h4>Video Presentation</h2> -->
+        </div>
+
+        <div class="publication-video">
+          <iframe
+            src="https://www.youtube.com/embed/b7pY3UObKmA"
+            title="YouTube video presentation"
+            frameborder="0"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
     </section>
 
@@ -449,8 +485,8 @@
     <section id="citation">
       <div class="wrap">
         <div class="section-head">
-          <div class="kicker">Citation</div>
-          <h3>BibTeX</h3>
+          <div class="kicker">BibTeX</div>
+          <!-- <h3>BibTeX</h3> -->
         </div>
         <pre><code>@article{yao2026dynamic,
     title={Dynamic Momentum Recalibration in Online Gradient Learning},
