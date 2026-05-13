@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <sup>$\dagger$</sup> Corresponding authors
+  <sup>$^\dagger$</sup> Corresponding authors
 </p>
 
 <h4 align="center">Official repository of the paper</h4>
