@@ -2,11 +2,11 @@
 
 <p align="center">
   <a>Zhipeng Yao</a><sup>1,2</sup> •
-  <a href="https://ruiyu0.github.io/Rui-Yu">Rui Yu</a><sup>2</sup> ^&dagger; • 
+  <a href="https://ruiyu0.github.io/Rui-Yu">Rui Yu</a><sup>2</sup> $^\dagger$ • 
   <a href="http://cos.neu.edu.cn/2025/0612/c11357a287489/page.htm">Guisong Chang</a><sup>3</sup> • 
   <a>Ying Li</a><sup>1</sup> •
   <a href="https://scholar.google.com/citations?hl=zh-CN&user=tVpADYIAAAAJ&view_op=list_works&sortby=pubdate">Yu Zhang</a><sup>1</sup> •
-  <a href="https://scholar.google.com/citations?user=SdS4SdgAAAAJ&hl=zh-CN&oi=sra">Dazhou Li</a><sup>1</sup> ^&dagger;
+  <a href="https://scholar.google.com/citations?user=SdS4SdgAAAAJ&hl=zh-CN&oi=sra">Dazhou Li</a><sup>1</sup> $^\dagger$
 </p>
 
 <p align="center">
